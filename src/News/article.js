@@ -45,7 +45,7 @@ class Article extends React.Component {
                 <div className={s.score}>Rating: {articleScore}</div>
                 <div className={s.time}>{time}</div>
                 <div className={s.title}>{artilceTitle}</div>
-                <NavLink to={articleid} activeClassName='activenavelement'><div>Read more...</div></NavLink>
+                <NavLink to={articleid} activeClassName='activenavelement'><div>Read more....</div></NavLink>
                 <Route path="article" render={() => <articlePost articleurl={articleurl} time={time} />} />
             </div>
         }
