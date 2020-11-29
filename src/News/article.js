@@ -1,7 +1,8 @@
 import React from 'react';
 import s from './article.module.css'
-import { BrowserRouter, Route, NavLink } from "react-router-dom"
-import articlePost from './post/articlePost';
+import { BrowserRouter, Route, NavLink, Link } from "react-router-dom"
+import ArticlePost from './post/articlePost';
+import Footer from '../footer/footer';
 
 
 class Article extends React.Component {
@@ -24,11 +25,22 @@ class Article extends React.Component {
     correctTime() {
         let a = this.state.articlePost.time;
         let d = new Date(a * 1000);
-        let time = d.getDate() + '/' + (d.getMonth()) + '/' + d.getFullYear() + " " + d.getHours() + ':' + d.getMinutes();
+        let time = d.toLocaleDateString() + ' ' + d.toLocaleTimeString();
         return time
     }
 
     render() {
+
+        // let options = {
+        //     root: null,
+        //     rootMargins: '0px',
+        //     threshold: 0.5, 
+        // };
+        // const observer = new IntersectionObserver(handleIntersect, options)
+        // observer.observe(document.querySelector('Footer'));
+        
+        
+
         if (this.state.articlePost === null) {
             return <div>Loading</div>
         }
@@ -41,12 +53,13 @@ class Article extends React.Component {
             const articleurl = (this.state.articlePost.url)
             console.log(articleid)
             return <div className={s.par}>
+                <div>{articleid}</div>
                 <div className={s.by}>{articleBy}</div>
                 <div className={s.score}>Rating: {articleScore}</div>
                 <div className={s.time}>{time}</div>
                 <div className={s.title}>{artilceTitle}</div>
-                <NavLink to={articleid} activeClassName='activenavelement'><div>Read more....</div></NavLink>
-                <Route path="article" render={() => <articlePost articleurl={articleurl} time={time} />} />
+                <Link to={articleid} activeClassName='activenavelement'><div>Read more....</div></Link>
+                
             </div>
         }
 
