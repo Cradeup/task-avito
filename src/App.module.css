@@ -1,9 +1,12 @@
 .App{
-    
+    display: grid;
 }
 
+
 .footer{
+    display: grid;
     height: 100px;
     width: 100%;
     background-color: #10101010;
+    align-self: end;
 }

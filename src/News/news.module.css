@@ -1,3 +1,4 @@
 .newsparrent{ 
-    
+    display: grid;
+    justify-items: center;
 }

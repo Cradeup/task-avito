@@ -1,7 +1,11 @@
 .par{
     height: 150px;
-    width: 450px;
-    border: 1px solid #111111;
+    width: 100%;
     margin: 0 auto;
     margin-top: 5px;
+}
+
+.id{
+    color: #999999;
+    font-size: 9px;
 }

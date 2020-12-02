@@ -2,6 +2,7 @@ import React from 'react';
 import s from './articlePost.module.css'
 import { BrowserRouter, Route, NavLink, Link } from "react-router-dom"
 import { withRouter, useParams } from "react-router";
+import CommentsList from '../comments/commentslist';
 
 class ArticlePost extends React.Component {
     constructor(props) {
@@ -30,26 +31,31 @@ class ArticlePost extends React.Component {
     }
 
     render() {
-
+        const id = this.props.match.params.id
         if (this.state.articlePost === null) {
             return <div>Loading</div>
         }
         else {
-            const articleBy = (this.state.articlePost.by)
-            const articleScore = (this.state.articlePost.score)
-            const time = this.correctTime()
-            const artilceTitle = (this.state.articlePost.title)
-            const articleid = `/${(this.state.articlePost.id)}`
-            const articleurl = (this.state.articlePost.url)
-            return <div>
-                <div>{articleid}</div>
-                <div className={s.by}>{articleBy}</div>
-                <div className={s.score}>Rating: {articleScore}</div>
+            const articlePost = this.state.articlePost;
+            const time = this.correctTime();
+            // const articleBy = (this.state.articlePost.by)
+            // const articleScore = (this.state.articlePost.score)
+            // const time = this.correctTime()
+            // const artilceTitle = (this.state.articlePost.title)
+            // const articleid = `/${(this.state.articlePost.id)}`
+            // const articleurl = (this.state.articlePost.url)
+            return (
+            <div className={s.par}>
+                <div className={s.by}>Author: {articlePost.by}</div>
+                <h3 className={s.title}>{articlePost.title}</h3>
                 <div className={s.time}>{time}</div>
-                <div className={s.title}>{artilceTitle}</div>
+                <div className={s.score}>Rating: {articlePost.score}</div>
+                <a href={articlePost.url}>Go to article</a>
                 <Link to='/' activeClassName='activenavelement'><div>Back to news list</div></Link>
-
-            </div>
+                <h3 className={s.commentsfront}>Comments: </h3>
+                <CommentsList kids={articlePost.kids}/>
+            </div>)
+            
         }
 
     }
