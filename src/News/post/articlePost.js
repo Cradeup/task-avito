@@ -4,11 +4,15 @@ import { BrowserRouter, Route, NavLink, Link } from "react-router-dom"
 import { withRouter, useParams } from "react-router";
 import CommentsList from '../comments/commentslist';
 
+
 class ArticlePost extends React.Component {
     constructor(props) {
         super(props)
         this.state = { articlePost: null };
         this.initializeStory();
+        setInterval(() => {
+            this.initializeStory()
+        }, 10000);
 
     }
     initializeStory() {
@@ -54,6 +58,7 @@ class ArticlePost extends React.Component {
                 <Link to='/' activeClassName='activenavelement'><div>Back to news list</div></Link>
                 <h3 className={s.commentsfront}>Comments: </h3>
                 <CommentsList kids={articlePost.kids}/>
+                
             </div>)
             
         }

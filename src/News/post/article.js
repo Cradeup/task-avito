@@ -8,17 +8,13 @@ class Article extends React.Component {
     constructor(props) {
         super(props)
         this.state = { articlePost: null };
-        this.props = props.article
-        this.initializeStory();
-
     }
     initializeStory() {
         this.fetchStory().then(articlePost => this.setState({ articlePost: articlePost }))
     }
 
     async fetchStory() {
-
-        let response = await (await (fetch(`https://hacker-news.firebaseio.com/v0/item/${this.props}.json?print=pretty`))).json()
+        let response = await (await (fetch(`https://hacker-news.firebaseio.com/v0/item/${this.props.article}.json?print=pretty`))).json()
         return response;
     }
 
@@ -27,6 +23,16 @@ class Article extends React.Component {
         let d = new Date(a * 1000);
         let time = d.toLocaleDateString() + ' ' + d.toLocaleTimeString();
         return time
+    }
+
+    componentDidMount(){
+        this.initializeStory();
+    }
+
+    componentDidUpdate(prevProps) {
+        if (this.props.article !== prevProps.article || this.state.articlePost === null) {
+            this.initializeStory();
+        }
     }
 
     render() {
@@ -41,9 +47,9 @@ class Article extends React.Component {
 
 
         if (this.state.articlePost === null) {
-            return <div>Loading</div>
+            return <div className={s.par}>Loading</div>
         }
-        
+
         else {
             const articlePost = this.state.articlePost;
             if (this.state.articlePost.kids === undefined) {

@@ -1,20 +1,20 @@
 import React from 'react';
 import s from './comment.module.css'
-import { BrowserRouter, Route, NavLink, Link } from "react-router-dom"  
+import { BrowserRouter, Route, NavLink, Link } from "react-router-dom"
 
 class Comment extends React.Component {
     constructor(props) {
         super(props)
-        this.state = { comment: []};
-        this.props = props.kids
-        this.initializeStory();
-    }
-    initializeStory() {
-        this.fetchStory().then(comment => this.setState({ comment: comment }))
+        this.state = { comment: null };
+        this.initializeComment();
     }
 
-    async fetchStory() {
-        let response = await (await (fetch(`https://hacker-news.firebaseio.com/v0/item/${this.props}.json?print=pretty`))).json()
+    initializeComment() {
+        this.fetchComment().then(comment => this.setState({ comment: comment }))
+    }
+
+    async fetchComment() {
+        let response = await (await (fetch(`https://hacker-news.firebaseio.com/v0/item/${this.props.commentId}.json?print=pretty`))).json()
         return response;
     }
 
@@ -25,25 +25,39 @@ class Comment extends React.Component {
         return time
     }
 
-
-    render() {
-            const comment = this.state.comment;
-            const time = this.correctTime()
-            const articleid = `/${(this.state.comment.id)}`
-            function createMarkup() {
-                return { __html: comment.text };
-            }
-            return <div className={s.par}>
-                <div className={s.commentstart}></div>
-                <div className={s.id}>{comment.id}</div>
-                <div className={s.by}>{comment.by}</div>
-                <div className={s.score}>Rating: {comment.score}</div>
-                <div className={s.time}>{time}</div>
-                <div dangerouslySetInnerHTML={createMarkup()} />
-                <Link to={articleid} activeClassName='activenavelement'><div>{comment.title}</div></Link>
-                <div className={s.commentend}></div>
-            </div>
+    componentDidUpdate(prevProps) {
+        if (this.props.commentId !== prevProps.commentId || this.state.articlePost === null) {
+            this.initializeComment();
         }
     }
+
+
+    render() {
+        const { comment } = this.state;
+        console.log(this.state.id)
+        if (!comment) {
+            return <div>Loading</div>;
+        }
+        if (comment.text === undefined) {
+            return <div></div>
+        }
+
+        const children = comment.kids ? comment.kids.map(kid => <Comment commentId={kid} />) : null;
+        const time = this.correctTime();
+        function createMarkup() {
+            return { __html: comment.text };
+        }
+        return <div className={s.par}>
+            <div className={s.time}>{time}</div>
+            <div className={s.id}>{comment.id}</div>
+            <div className={s.by}>{comment.by}</div>
+            <div dangerouslySetInnerHTML={createMarkup()} />
+            <div className={s.commentend}></div>
+            <div className={s.childComments}>
+                {children}
+            </div>
+        </div>
+    }
+}
 
 export default Comment;

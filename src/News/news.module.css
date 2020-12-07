@@ -2,3 +2,7 @@
     display: grid;
     justify-items: center;
 }
+
+.parrent{ 
+    height: 200vh;
+}

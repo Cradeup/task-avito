@@ -1,11 +1,28 @@
 .commentend{
     height: 1px;
     width: 1300px;
-    background-color: #111111
+    background-color: #111111;
 }
 
+.childComments {
+    margin-left: 20px;
+} 
 
 
 .par{
     margin: 5px;
+}
+
+.id{
+    font-size: 9px;
+    color: #999999;
+}
+
+.by{ 
+    font-size: 18px;
+    color: #545454
+}
+
+.time{
+    font-size: 12px;
 }

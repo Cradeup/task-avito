@@ -6,6 +6,9 @@ class CommentsList extends React.Component {
         super(props);
         this.state = { comments: [] };
         this.initializeNews();
+        setInterval(() => {
+            this.initializeNews()
+        }, 10000);
     }
 
     initializeNews() {
@@ -24,7 +27,7 @@ class CommentsList extends React.Component {
             There are no comments yet</div>
         }
         else {
-            const commentsList = this.state.comments.map(kids => <Comment kids={kids} />);
+            const commentsList = this.state.comments.map(commentId => <Comment key={commentId} commentId={commentId} />);
             return (<div>{commentsList}
                 <div></div>
             </div>
