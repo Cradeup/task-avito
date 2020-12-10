@@ -47,7 +47,14 @@ class Article extends React.Component {
 
 
         if (this.state.articlePost === null) {
-            return <div className={s.par}>Loading</div>
+            return <div className={s.loadingpar}>
+                <div className={s.loadingcomments}></div>
+                <div className={s.loadingid}></div>
+                <div className={s.loadingby}></div>
+                <div className={s.loadingrating}></div>
+                <div className={s.loadingdate}></div>
+                <div className={s.loadingtitle}></div>
+            </div>
         }
 
         else {
@@ -72,7 +79,7 @@ class Article extends React.Component {
                 </div>
             }
             else {
-                const commentscount = this.state.articlePost.kids.length;
+                const commentscount = this.state.articlePost.descendants;
                 const time = this.correctTime()
                 // const articleBy = (this.state.articlePost.by)
                 // const articleScore = (this.state.articlePost.score)

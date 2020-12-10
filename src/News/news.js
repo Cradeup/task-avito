@@ -25,7 +25,7 @@ class News extends React.Component {
     }
 
     async fetchNews() {
-        let response = await (await (fetch('https://hacker-news.firebaseio.com/v0/newstories.json?print=pretty'))).json();
+        let response = await (await (fetch('https://hacker-news.firebaseio.com/v0/topstories.json?print=pretty'))).json();
         return response;
     }
 

@@ -36,10 +36,10 @@ class Comment extends React.Component {
         const { comment } = this.state;
         console.log(this.state.id)
         if (!comment) {
-            return <div>Loading</div>;
+            return <div className={s.loading}>Loading</div>;
         }
         if (comment.text === undefined) {
-            return <div></div>
+            return null;
         }
 
         const children = comment.kids ? comment.kids.map(kid => <Comment commentId={kid} />) : null;
@@ -51,7 +51,7 @@ class Comment extends React.Component {
             <div className={s.time}>{time}</div>
             <div className={s.id}>{comment.id}</div>
             <div className={s.by}>{comment.by}</div>
-            <div dangerouslySetInnerHTML={createMarkup()} />
+            <div className={s.text} dangerouslySetInnerHTML={createMarkup()} />
             <div className={s.commentend}></div>
             <div className={s.childComments}>
                 {children}

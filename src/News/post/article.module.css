@@ -9,3 +9,60 @@
     color: #999999;
     font-size: 9px;
 }
+
+.loadingpar{
+    height: 150px;
+    width: 100%;
+    margin: 0 auto;
+    margin-top: 5px;
+}
+
+
+.loadingcomments{
+    height: 20px;
+    width: 150px;
+    background-color: #ebebeb;
+    margin: 0 auto;
+    margin-left: 10px;
+}
+
+.loadingid{
+    height: 20px;
+    width: 60px;
+    background-color: #ebebeb;
+    margin: 0 auto;
+    margin-left: 10px;
+}
+
+.loadingby{
+    height: 20px;
+    width: 100px;
+    background-color: #ebebeb;
+    margin: 0 auto;
+    margin-left: 10px;
+}
+
+.loadingrating{
+    height: 20px;
+    width: 110px;
+    background-color: #ebebeb;
+    margin: 0 auto;
+    margin-left: 10px;
+}
+
+.loadingdate{
+    height: 20px;
+    width: 190px;
+    background-color: #ebebeb;
+    margin: 0 auto;
+    margin-left: 10px;
+}
+
+.loadingtitle{
+    height: 20px;
+    width: 250px;
+    background-color: #ebebeb;
+    margin: 0 auto;
+    margin-left: 10px;
+}
+

@@ -8,7 +8,7 @@ class CommentsList extends React.Component {
         this.initializeNews();
         setInterval(() => {
             this.initializeNews()
-        }, 10000);
+        }, 60000);
     }
 
     initializeNews() {
@@ -22,11 +22,15 @@ class CommentsList extends React.Component {
     // }
 
     render() {
+        debugger;
         if (this.props.kids === undefined) {
-            return <div>
-            There are no comments yet</div>
+            return null
+        }
+        if (this.props.kids === null) {
+            return <div></div>
         }
         else {
+            debugger;
             const commentsList = this.state.comments.map(commentId => <Comment key={commentId} commentId={commentId} />);
             return (<div>{commentsList}
                 <div></div>

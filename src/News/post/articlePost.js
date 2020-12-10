@@ -12,7 +12,7 @@ class ArticlePost extends React.Component {
         this.initializeStory();
         setInterval(() => {
             this.initializeStory()
-        }, 10000);
+        }, 60000);
 
     }
     initializeStory() {
@@ -39,7 +39,7 @@ class ArticlePost extends React.Component {
         if (this.state.articlePost === null) {
             return <div>Loading</div>
         }
-        else {
+        else if (this.state.articlePost != null, this.state.articlePost.kids === undefined) {
             const articlePost = this.state.articlePost;
             const time = this.correctTime();
             // const articleBy = (this.state.articlePost.by)
@@ -49,21 +49,37 @@ class ArticlePost extends React.Component {
             // const articleid = `/${(this.state.articlePost.id)}`
             // const articleurl = (this.state.articlePost.url)
             return (
-            <div className={s.par}>
-                <div className={s.by}>Author: {articlePost.by}</div>
-                <h3 className={s.title}>{articlePost.title}</h3>
-                <div className={s.time}>{time}</div>
-                <div className={s.score}>Rating: {articlePost.score}</div>
-                <a href={articlePost.url}>Go to article</a>
-                <Link to='/' activeClassName='activenavelement'><div>Back to news list</div></Link>
-                <h3 className={s.commentsfront}>Comments: </h3>
-                <CommentsList kids={articlePost.kids}/>
-                
-            </div>)
-            
+                <div className={s.par}>
+                    <div className={s.by}>Author: {articlePost.by}</div>
+                    <h3 className={s.title}>{articlePost.title}</h3>
+                    <div className={s.time}>{time}</div>
+                    <div className={s.score}>Rating: {articlePost.score}</div>
+                    <a href={articlePost.url}>Go to article</a>
+                    <Link to='/' activeClassName='activenavelement'><div>Back to news list</div></Link>
+                    <h3 className={s.commentsfront}>Comments: </h3>
+                    <div>There are no comments yet</div>
+                </div>
+            )
         }
-
+        else if (this.state.articlePost != null, this.state.articlePost.kids != undefined) {
+            const articlePost = this.state.articlePost;
+            const time = this.correctTime();
+            return (
+                <div className={s.par}>
+                    <div className={s.by}>Author: {articlePost.by}</div>
+                    <h3 className={s.title}>{articlePost.title}</h3>
+                    <div className={s.time}>{time}</div>
+                    <div className={s.score}>Rating: {articlePost.score}</div>
+                    <a href={articlePost.url}>Go to article</a>
+                    <Link to='/' activeClassName='activenavelement'><div>Back to news list</div></Link>
+                    <h3 className={s.commentsfront}>Comments: </h3>
+                    <CommentsList kids={articlePost.kids} />
+                </div>
+            )
+        }
     }
+
 }
+
 
 export default withRouter(ArticlePost);

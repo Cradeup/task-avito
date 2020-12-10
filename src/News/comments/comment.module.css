@@ -1,11 +1,11 @@
 .commentend{
-    height: 1px;
+    /* height: 1px;
     width: 1300px;
-    background-color: #111111;
+    background-color: #111111; */
 }
 
 .childComments {
-    margin-left: 20px;
+    margin-left: 40px;
 } 
 
 
@@ -25,4 +25,8 @@
 
 .time{
     font-size: 12px;
+}
+
+.loading{
+    height: 120px;
 }
