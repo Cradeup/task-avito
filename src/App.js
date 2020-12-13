@@ -3,6 +3,13 @@ import News from './News/news';
 import s from './App.module.css'
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import ArticlePost from './News/post/articlePost';
+import { connect } from 'react-redux';
+
+const mapStateToProps = (state) => {
+  
+  return {}
+};
+
 
 function App() {
   return (

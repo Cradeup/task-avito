@@ -1,8 +1,33 @@
-.newsparrent{ 
+.parrent{ 
     display: grid;
+    grid-template-columns: 1fr;
     justify-items: center;
+    height: 200vh;
+
 }
 
-.parrent{ 
-    height: 200vh;
+.reload{
+    border: none;
+    cursor: pointer;
+    font-size: 20px;
+    outline: none;
+    background: none;
 }
+
+.loadingimg{
+    height: 30px;
+    background: none;
+}
+
+
+
+.loadingimg:hover {
+    
+    -webkit-transition: all 0.5s ease;;
+    -moz-transition: all 0.5s ease;;
+    -o-transition: all 0.5s ease;;
+    transition: all 0.5s ease;
+    -webkit-transform: rotateZ(360deg);
+    -ms-transform: rotateZ(360deg);
+    transform: rotateZ(360deg);
+  }

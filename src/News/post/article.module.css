@@ -1,33 +1,78 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,600;1,300;1,600&display=swap');
+
 .par{
-    height: 150px;
+    
+    height: 60px;
     width: 100%;
     margin: 0 auto;
-    margin-top: 5px;
+    margin-top: 10px;
+    font-family: Rubik;
+    -webkit-transition: all 0.5s ease;;
+    -moz-transition: all 0.5s ease;;
+    -o-transition: all 0.5s ease;;
+    transition: all 0.5s ease;
+    padding: 5px;
+    color: black;
+    border-radius: 5px;
+    background-color: white;
+    border: 1px solid black;
+    
 }
+
+.by{
+    font-size: 12px;
+}
+
+.parlink{
+    text-decoration: none;
+}
+
+.par:hover {
+    background-color: #e6e6e6;
+        box-shadow:
+          1px 1px #3d98bf,
+          2px 2px #3d98bf,
+          3px 3px #3d98bf,
+          4px 4px #3d98bf,
+          5px 5px #3d98bf,
+          6px 6px #3d98bf,
+          7px 7px #3d98bf;
+        -webkit-transform: translateX(-7px);
+        transform: translateX(-7px);
+  }
+
+  .par:visited{
+      color: black;
+  }
 
 .id{
     color: #999999;
     font-size: 9px;
+    
+}
+
+.time{
+    font-size: 12px;
 }
 
 .loadingpar{
-    height: 150px;
+    height: 60px;
     width: 100%;
     margin: 0 auto;
-    margin-top: 5px;
+    margin-top: 10px;
 }
 
 
 .loadingcomments{
-    height: 20px;
-    width: 150px;
+    height: 10px;
+    width: 250px;
     background-color: #ebebeb;
     margin: 0 auto;
     margin-left: 10px;
 }
 
 .loadingid{
-    height: 20px;
+    height: 10px;
     width: 60px;
     background-color: #ebebeb;
     margin: 0 auto;
@@ -35,32 +80,24 @@
 }
 
 .loadingby{
-    height: 20px;
-    width: 100px;
-    background-color: #ebebeb;
-    margin: 0 auto;
-    margin-left: 10px;
-}
-
-.loadingrating{
-    height: 20px;
-    width: 110px;
+    height: 10px;
+    width: 140px;
     background-color: #ebebeb;
     margin: 0 auto;
     margin-left: 10px;
 }
 
 .loadingdate{
-    height: 20px;
-    width: 190px;
+    height: 10px;
+    width: 100px;
     background-color: #ebebeb;
     margin: 0 auto;
     margin-left: 10px;
 }
 
 .loadingtitle{
-    height: 20px;
-    width: 250px;
+    height: 10px;
+    width: 400px;
     background-color: #ebebeb;
     margin: 0 auto;
     margin-left: 10px;

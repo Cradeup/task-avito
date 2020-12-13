@@ -1,34 +1,21 @@
 import React from 'react';
 import s from './articlePost.module.css'
-import { BrowserRouter, Route, NavLink, Link } from "react-router-dom"
-import { withRouter, useParams } from "react-router";
-import CommentsList from '../comments/commentslist';
-
-
+import { Link } from "react-router-dom"
+import { withRouter, } from "react-router";
+import { connect } from 'react-redux';
+import { fetchArticle } from '../../actions/artilce-action';
+import Comment from '../comments/comment'
 class ArticlePost extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state = { articlePost: null };
-        this.initializeStory();
+    componentDidMount() {
+      const {id}=  this.props.match.params;
+        this.props.fetchArticle(id)
         setInterval(() => {
-            this.initializeStory()
+            this.props.fetchArticle(id)
         }, 60000);
-
-    }
-    initializeStory() {
-        const id = this.props.match.params.id;
-        this.fetchStory(id).then(articlePost => this.setState({ articlePost: articlePost }))
     }
 
-
-    async fetchStory(id) {
-
-        let response = await (await (fetch(`https://hacker-news.firebaseio.com/v0/item/${id}.json?print=pretty`))).json()
-        return response;
-    }
-
-    correctTime() {
-        let a = this.state.articlePost.time;
+    humanizeTime() {
+        let a = this.props.article.time;
         let d = new Date(a * 1000);
         let time = d.toLocaleDateString() + ' ' + d.toLocaleTimeString();
         return time
@@ -36,50 +23,38 @@ class ArticlePost extends React.Component {
 
     render() {
         const id = this.props.match.params.id
-        if (this.state.articlePost === null) {
-            return <div>Loading</div>
+        if (this.props.article === null) {
+            return <div className={s.loading}>Loading</div>
         }
-        else if (this.state.articlePost != null, this.state.articlePost.kids === undefined) {
-            const articlePost = this.state.articlePost;
-            const time = this.correctTime();
-            // const articleBy = (this.state.articlePost.by)
-            // const articleScore = (this.state.articlePost.score)
-            // const time = this.correctTime()
-            // const artilceTitle = (this.state.articlePost.title)
-            // const articleid = `/${(this.state.articlePost.id)}`
-            // const articleurl = (this.state.articlePost.url)
-            return (
-                <div className={s.par}>
-                    <div className={s.by}>Author: {articlePost.by}</div>
-                    <h3 className={s.title}>{articlePost.title}</h3>
-                    <div className={s.time}>{time}</div>
-                    <div className={s.score}>Rating: {articlePost.score}</div>
-                    <a href={articlePost.url}>Go to article</a>
-                    <Link to='/' activeClassName='activenavelement'><div>Back to news list</div></Link>
-                    <h3 className={s.commentsfront}>Comments: </h3>
-                    <div>There are no comments yet</div>
-                </div>
-            )
+        let commentsContainer = null;
+        if (this.props.article.kids === undefined) {
+            commentsContainer = 'There are no comments yet'
+        } else {
+            const currentArticle = this.props.kids.filter(kid => this.props.article.kids.includes(kid.id))
+            commentsContainer = currentArticle.map(comment => <Comment key={comment.id} comment={comment} />);
         }
-        else if (this.state.articlePost != null, this.state.articlePost.kids != undefined) {
-            const articlePost = this.state.articlePost;
-            const time = this.correctTime();
-            return (
-                <div className={s.par}>
-                    <div className={s.by}>Author: {articlePost.by}</div>
-                    <h3 className={s.title}>{articlePost.title}</h3>
-                    <div className={s.time}>{time}</div>
-                    <div className={s.score}>Rating: {articlePost.score}</div>
-                    <a href={articlePost.url}>Go to article</a>
-                    <Link to='/' activeClassName='activenavelement'><div>Back to news list</div></Link>
-                    <h3 className={s.commentsfront}>Comments: </h3>
-                    <CommentsList kids={articlePost.kids} />
-                </div>
-            )
-        }
+        const articlePost = this.props.article;
+        const time = this.humanizeTime();
+        return (
+            <div className={s.par}>
+                <div className={s.by}>Author: {articlePost.by}</div>
+                <h3 className={s.title}>{articlePost.title}</h3>
+                <div className={s.time}>{time}</div>
+                <div className={s.score}>Rating: {articlePost.score}</div>
+                <a className={s.link} href={articlePost.url} target='_blank'>Go to article</a>
+                <Link to='/' className={s.link}><div>Back to news list</div></Link>
+                <h3 className={s.commentsfront}>Comments: </h3>
+                <div>{commentsContainer}</div>
+            </div>
+        )
     }
-
+}
+function mapStateToProps(state) {
+    return {
+        article: state.articles.article,
+        status: state.articles.status,
+        kids: state.articles.kids
+    }
 }
 
-
-export default withRouter(ArticlePost);
+export default connect(mapStateToProps, { fetchArticle })(withRouter(ArticlePost));
