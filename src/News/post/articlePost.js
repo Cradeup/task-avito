@@ -3,16 +3,24 @@ import s from './articlePost.module.css'
 import { Link } from "react-router-dom"
 import { withRouter, } from "react-router";
 import { connect } from 'react-redux';
-import { fetchArticle } from '../../actions/artilce-action';
+import { fetchArticle, clearState } from '../../actions/artilce-action';
 import Comment from '../comments/comment'
 class ArticlePost extends React.Component {
+    intervalId;
+
     componentDidMount() {
-      const {id}=  this.props.match.params;
+        const { id } = this.props.match.params;
         this.props.fetchArticle(id)
-        setInterval(() => {
+        this.intervalId = setInterval(() => {
             this.props.fetchArticle(id)
         }, 60000);
     }
+
+    componentWillUnmount() {
+        this.props.clearState()
+        clearInterval(this.intervalId)
+    }
+
 
     humanizeTime() {
         let a = this.props.article.time;
@@ -57,4 +65,4 @@ function mapStateToProps(state) {
     }
 }
 
-export default connect(mapStateToProps, { fetchArticle })(withRouter(ArticlePost));
+export default connect(mapStateToProps, { fetchArticle, clearState })(withRouter(ArticlePost));

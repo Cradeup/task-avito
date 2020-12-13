@@ -31,18 +31,24 @@ export default createReducer(initialState, {
     [NEWS.FETCH_ARTICLE]: (state, action) => {
         let id = action.payload
         let article = state.articles.find(item => item.id === id)
-        article.status = 'loading'
+        if (article) {
+            article.status = 'loading'
+        }
     },
     [NEWS.FETCH_ARTICLE_SUCCES]: (state, action) => {
         let loadedArticle = action.payload
         let article = state.articles.find(item => item.id === loadedArticle.id)
-        article.article = loadedArticle;
-        article.status = 'loaded'
+        if (article) {
+            article.article = loadedArticle;
+            article.status = 'loaded'
+        }
     },
     [NEWS.FETCH_ARTICLE_FAIL]: (state, action) => {
-        let loadedArticle = action.payload
-        let article = state.articles.find(item => item.id === loadedArticle.id)
-        article.status = 'failed'
+        let loadedArticleId = action.payload
+        let article = state.articles.find(item => item.id === loadedArticleId)
+        if (article) {
+            article.status = 'failed'
+        }
     },
     [NEWS.SHOW_MORE_NEWS]: (state, action) => {
         state.j = state.j + 10

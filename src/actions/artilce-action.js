@@ -5,9 +5,9 @@ export const fetchArticle = (id) => dispatch => {
     dispatch ({
         type: ARTICLE.FETCH_ARTICLE
     });
-    fetchJSON(`https://hacker-news.firebaseio.com/v0/item/${id}.json?print=pretty`)
+    fetchJSON(`https://hacker-news.firebaseio.com/v0/item/${id}.json`)
         .then(fetchArticleSuccess(dispatch))
-        .catch(fetchArticleFail(dispatch))
+        .catch(() => fetchArticleFail(dispatch)(id))
 }
 
 export const fetchArticleSuccess = dispatch => article => {
@@ -17,9 +17,10 @@ export const fetchArticleSuccess = dispatch => article => {
     })
 }
 
-const fetchArticleFail = dispatch => () => {
+const fetchArticleFail = dispatch => (id) => {
     dispatch({
         type: ARTICLE.FETCH_ARTICLE_FAIL,
+        payload: id
     })
 }
 
@@ -28,9 +29,9 @@ export const fetchComment = (id) => dispatch => {
         type: ARTICLE.FETCH_COMMENT,
         payload: id
     })
-    fetchJSON(`https://hacker-news.firebaseio.com/v0/item/${id}.json?print=pretty`)
+    fetchJSON(`https://hacker-news.firebaseio.com/v0/item/${id}.json`)
         .then(fetchCommentSuccess(dispatch))
-        .catch(fetchCommentFail(dispatch))
+        .catch(() => fetchCommentFail(dispatch)(id))
 }
 
 const fetchCommentSuccess = dispatch => comment => {
@@ -40,9 +41,10 @@ const fetchCommentSuccess = dispatch => comment => {
     })
 }
 
-const fetchCommentFail = dispatch => () => {
+const fetchCommentFail = dispatch => id => {
     dispatch({
         type: ARTICLE.FETCH_COMMENT_FAIL,
+        payload: id
     })
 }
 
@@ -50,5 +52,11 @@ export const openChildren = (id) => dispatch => {
     dispatch({
         type: ARTICLE.OPEN_CHILDREN,
         payload: id
+    })
+}
+
+export const clearState = () => dispatch => {
+    dispatch({
+        type: ARTICLE.CLEAR_STATE
     })
 }

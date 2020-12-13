@@ -6,25 +6,26 @@ import InfiniteScroll from 'react-infinite-scroller';
 import { fetchNews, showMoreNews } from '../actions/news-action';
 
 class News extends React.Component {
+    intervalId
+
     componentDidMount() {
         if (this.props.status === 'waiting') {
             this.props.fetchNews()
         }
 
-        setInterval(() => this.props.fetchNews(), 60_000);
+        this.intervalId = setInterval(() => this.props.fetchNews(), 60_000);
     }
 
     showMore() {
         this.props.showMoreNews()
+        clearInterval(this.intervalId)
     }
-
-
 
     render() {
         if (this.props.status === 'waiting') {
             return <div>Loading news...</div>
         }
-        const newsSliced =  this.props.news.slice(0, this.props.j);
+        const newsSliced = this.props.news.slice(0, this.props.j);
         const newsComponents = newsSliced.map(article => <Article key={article.id} article={article} />);
         return (
             <div className={s.parrent}>

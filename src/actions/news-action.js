@@ -5,7 +5,7 @@ export const fetchNews = () => dispatch => {
     dispatch({
         type: NEWS.FETCH_NEWS_IDS
     });
-    fetchJSON('https://hacker-news.firebaseio.com/v0/topstories.json?print=pretty')
+    fetchJSON('https://hacker-news.firebaseio.com/v0/topstories.json')
         .then(newsFetchSucces(dispatch))
         .catch(newsFetchFail(dispatch));
 }
@@ -31,7 +31,7 @@ export const fetchArticle = (id) => dispatch => {
     });
     tryFetchArticle(id)
         .then(fetchArticleSucces(dispatch))
-        .catch(fetchArticleFail(dispatch));
+        .catch(() => fetchArticleFail(dispatch)(id));
 
 }
 
@@ -58,7 +58,7 @@ export const showMoreNews = () => dispatch => {
 async function tryFetchArticle(id) {
     let article
     do {
-        article = await (fetchJSON(`https://hacker-news.firebaseio.com/v0/item/${id}.json?print=pretty`))
+        article = await (fetchJSON(`https://hacker-news.firebaseio.com/v0/item/${id}.json`))
         if (article) {
             return article;
         }
